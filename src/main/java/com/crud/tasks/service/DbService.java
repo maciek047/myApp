@@ -20,13 +20,8 @@ public class DbService {
         return repository.findAll();
     }
 
-    public Object getTaskById(Long taskId) {
-        java.util.Optional<com.crud.tasks.domain.Task> tempTask = repository.findById(taskId);
-        if(tempTask.isPresent()) {
-            return tempTask;
-        } else {
-            return null;
-        }
+    public Task getTaskById(final Long taskId) {
+        return repository.findById(taskId).orElse(null);
     }
 }
 
