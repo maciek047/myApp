@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/trello")
 public class TrelloController {
