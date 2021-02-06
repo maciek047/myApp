@@ -18,9 +18,10 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    private static final String SUBJECT = "Tasks: Once a day email";
+    private static final String SUBJECT = "Daily Tasks: What's planned for today";
+    //    @Scheduled(fixedDelay = 10000)
 
-    //@Scheduled(cron = "0 0 10 * * *")
+//    @Scheduled(cron = "0 0 8 * * *")
     @Scheduled(fixedDelay = 10000)
     public void sendInformationEmail() {
         long size = taskRepository.count();
@@ -36,7 +37,6 @@ public class EmailScheduler {
                 message,
                 ""
         ));
-
     }
 
 

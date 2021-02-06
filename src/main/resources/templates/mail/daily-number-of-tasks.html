@@ -114,10 +114,10 @@
                                         </table>
 
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                            Application functionality:
+                                            List of your tasks:
                                         </p>
-                                        <ul th:each="function : ${application_functionality}">
-                                            <li th:text="${function}"></li>
+                                        <ul th:each="function : ${list_tasks}">
+                                            <li th:text="'ID '${function.getId()} + ': ' + ${function.getTitle()}"></li>
                                         </ul>
 
                                         <p th:text="${goodbye_message}" style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">GOODBYE_MESSAGE</p>
