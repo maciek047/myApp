@@ -28,13 +28,11 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	compileOnly group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
 	annotationProcessor('org.projectlombok:lombok')
-
-
 //	compile('org.postgresql:postgresql')
 
 	compile('io.springfox:springfox-swagger2:2.7.0')
 	compile('io.springfox:springfox-swagger-ui:2.7.0')
-
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
