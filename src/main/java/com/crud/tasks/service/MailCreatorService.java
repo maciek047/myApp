@@ -3,6 +3,7 @@ package com.crud.tasks.service;
 import com.crud.tasks.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -18,6 +19,15 @@ public class MailCreatorService {
     @Qualifier("templateEngine")
     private TemplateEngine templateEngine;
 
+    @Value("${info.company.name}")
+    private String companyName;
+
+    @Value("${info.company.email}")
+    private String companyEmail;
+
+    @Value("${info.company.phone}")
+    private String companyPhone;
+
     public String buildTrelloCardEmail(String message) {
         Context context = new Context();
         context.setVariable("message", message);
@@ -25,7 +35,7 @@ public class MailCreatorService {
         context.setVariable("button", "Visit website");
         context.setVariable("admin_name", adminConfig.getAdminName());
         context.setVariable("goodbye_message", "Best regards");
-        context.setVariable("company_details", "${info.company.name}" + "\nEmail: " + "${info.company.email}" + "\nPhone: " + "${info.company.phone}" + "\n");
+        context.setVariable("company_details", companyName + "\nEmail: " + companyEmail + "\nPhone: " + companyPhone + "\n");
         context.setVariable("preview_message", "New Trello Card Created...");
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
