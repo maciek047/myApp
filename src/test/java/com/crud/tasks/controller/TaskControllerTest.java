@@ -1,14 +1,10 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.*;
-import com.crud.tasks.facade.TrelloFacade;
-import com.crud.tasks.mapper.TaskMapper;
-import com.crud.tasks.service.DbService;
 import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,10 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import static org.hamcrest.Matchers.*;
-import static org.mockito.ArgumentMatchers.nullable;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -46,7 +40,7 @@ public class TaskControllerTest {
 
         when(taskController.getTasks()).thenReturn(taskDtoList);
         // When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(1)))
                 .andExpect(jsonPath("$[0].id",is(1)))
@@ -61,7 +55,7 @@ public class TaskControllerTest {
 
         when(taskController.getTask(2L)).thenReturn(testedTask);
         // When & Then
-        mockMvc.perform(get("/v1/task/getTask?taskId=2").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks/2").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id",is(2)))
                 .andExpect(jsonPath("$.title", is("task2")))
@@ -73,7 +67,7 @@ public class TaskControllerTest {
         //Given
         doNothing().when(taskController).deleteTask(1L);
         // When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask?taskId=1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -87,7 +81,7 @@ public class TaskControllerTest {
 
         when(taskController.updateTask(ArgumentMatchers.any(TaskDto.class))).thenReturn(updatedTask);
         // When & Then
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -106,7 +100,7 @@ public class TaskControllerTest {
 
         doNothing().when(taskController).createTask(createdTask);
         // When & Then
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
